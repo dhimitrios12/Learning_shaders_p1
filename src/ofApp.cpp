@@ -20,7 +20,10 @@ void ofApp::setup() {
 	ofIndexType indices[6] = {0, 1, 2, 2, 3, 0};
 	quad.addIndices(indices, 6);
 
-	shader.load("uv_passthrough.vert", "uv_vis.frag");
+	shader.load("uv_passthrough.vert", "texture.frag");
+
+	ofDisableArbTex(); // Disables legacy openFrameworks features
+	img.load("test_UV_texture.jpg");
 }
 
 //--------------------------------------------------------------
@@ -31,6 +34,7 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
 	shader.begin();
+	shader.setUniformTexture("abstract_texture", img, 0);
 	quad.draw();
 	shader.end();
 }
