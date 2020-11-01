@@ -22,6 +22,6 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 		
 
-		ofMesh triangle;
+		ofMesh quad;
 		ofShader shader;
 };
