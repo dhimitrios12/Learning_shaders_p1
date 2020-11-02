@@ -20,10 +20,12 @@ void ofApp::setup() {
 	ofIndexType indices[6] = {0, 1, 2, 2, 3, 0};
 	quad.addIndices(indices, 6);
 
-	shader.load("uv_passthrough.vert", "texture.frag");
+	shader.load("scrolling_uv.vert", "brightness.frag");
+	ofDisableAlphaBlending();
 
 	ofDisableArbTex(); // Disables legacy openFrameworks features
 	img.load("test_UV_texture.jpg");
+	img.getTexture().setTextureWrap(GL_REPEAT, GL_REPEAT);
 }
 
 //--------------------------------------------------------------
@@ -35,6 +37,8 @@ void ofApp::update(){
 void ofApp::draw(){
 	shader.begin();
 	shader.setUniformTexture("abstract_texture", img, 0);
+	shader.setUniform1f("time", 1);
+	shader.setUniform1f("brightness", brightness);
 	quad.draw();
 	shader.end();
 }
