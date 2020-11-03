@@ -21,4 +21,8 @@
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\data\passthrough_v2.vert" />
+    <None Include="bin\data\alphaTest.frag" />
+  </ItemGroup>
 </Project>
