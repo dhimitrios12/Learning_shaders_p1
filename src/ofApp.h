@@ -22,8 +22,7 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 		
 
-		ofMesh quad;
-		ofShader shader;
-		ofImage img;
-		float brightness = 1;
+		ofMesh charMesh;
+		ofShader charShader;
+		ofImage alienImage;
 };
