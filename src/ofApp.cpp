@@ -7,13 +7,16 @@ void buildMesh(ofMesh&, float, float, glm::vec3);
 void ofApp::setup() {
 	buildMesh(charMesh, 0.35f, 0.45f, glm::vec3(-0.0f, -0.25f, 0.0f));
 	buildMesh(backgroundMesh, 1, 1, glm::vec3(0, 0, 0.5));
+	buildMesh(frameMesh, 1, 1, glm::vec3(0, 0 , -0.1));
 	ofDisableArbTex();
-	ofDisableAlphaBlending();
+	//ofDisableAlphaBlending();
 	ofEnableDepthTest();
 
 	charImage.load("character.png");
 	backgroundImage.load("background.jpg");
+	frameImage.load("flare.png");
 	charShader.load("passthrough_v2.vert", "alphaTest.frag");
+	frameShader.load("passthrough_v2.vert", "flare.frag");
 }
 
 //--------------------------------------------------------------
@@ -30,6 +33,11 @@ void ofApp::draw(){
 	charShader.setUniformTexture("shaderTexture", backgroundImage, 0);
 	backgroundMesh.draw();
 	charShader.end();
+
+	frameShader.begin();
+	frameShader.setUniformTexture("shaderTexture", frameImage, 0);
+	frameMesh.draw();
+	frameShader.end();
 }
 
 //--------------------------------------------------------------

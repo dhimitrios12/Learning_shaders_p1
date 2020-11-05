@@ -24,7 +24,10 @@ class ofApp : public ofBaseApp{
 
 		ofMesh charMesh;
 		ofMesh backgroundMesh;
+		ofMesh frameMesh;
 		ofShader charShader;
+		ofShader frameShader;
 		ofImage charImage;
 		ofImage backgroundImage;
+		ofImage frameImage;
 };
