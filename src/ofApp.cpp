@@ -5,18 +5,23 @@ void buildMesh(ofMesh&, float, float, glm::vec3);
 
 //--------------------------------------------------------------
 void ofApp::setup() {
-	buildMesh(charMesh, 0.35f, 0.45f, glm::vec3(-0.0f, -0.25f, 0.0f));
-	buildMesh(backgroundMesh, 1, 1, glm::vec3(0, 0, 0.5));
-	buildMesh(frameMesh, 1, 1, glm::vec3(0, 0 , -0.1));
+	using namespace glm;
+	buildMesh(charMesh, 0.35f, 0.45f, vec3(-0.2f, -0.25f, 0.0f));
+	buildMesh(backgroundMesh, 1, 1, vec3(0, 0, 0.5));
+	buildMesh(frameMesh, 1, 1, vec3(0, 0 , -0.1));
+	buildMesh(sunRaysMesh, 1, 1, vec3(0, 0, -0.05));
+	buildMesh(portalMesh, 0.45f, 0.5f, vec3(0.45f, -0.15f, 0.0f));
 	ofDisableArbTex();
-	//ofDisableAlphaBlending();
 	ofEnableDepthTest();
 
 	charImage.load("character.png");
 	backgroundImage.load("background.jpg");
 	frameImage.load("flare.png");
+	sunRays.load("sunRays.png");
+	portalImage.load("portal.png");
 	charShader.load("passthrough_v2.vert", "alphaTest.frag");
 	frameShader.load("passthrough_v2.vert", "flare.frag");
+	portalShader.load("spriteSheet.vert", "flare.frag");
 }
 
 //--------------------------------------------------------------
@@ -26,6 +31,13 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+	static float frame = 0.0f;
+	frame = (frame > 15) ? 0.0f : frame + 0.2;
+	glm::vec2 spriteSize = glm::vec2(0.25, 0.25);
+	glm::vec2 spriteFrame = glm::vec2((int)frame % 4, (int)(frame/4) % 4);
+
+	ofDisableBlendMode();
+	ofEnableDepthTest();
 	charShader.begin();
 	charShader.setUniformTexture("shaderTexture", charImage, 0);
 	charMesh.draw();
@@ -34,9 +46,22 @@ void ofApp::draw(){
 	backgroundMesh.draw();
 	charShader.end();
 
+	ofDisableDepthTest();
+	ofEnableBlendMode(ofBlendMode::OF_BLENDMODE_ALPHA);
+	portalShader.begin();
+	portalShader.setUniformTexture("shaderTexture", portalImage, 0);
+	portalShader.setUniform2f("size", spriteSize);
+	portalShader.setUniform2f("offset", spriteFrame);
+	portalMesh.draw();
+	portalShader.end();
+
 	frameShader.begin();
 	frameShader.setUniformTexture("shaderTexture", frameImage, 0);
 	frameMesh.draw();
+
+	ofEnableBlendMode(ofBlendMode::OF_BLENDMODE_ADD);
+	frameShader.setUniformTexture("shaderTexture", sunRays, 0);
+	sunRaysMesh.draw();
 	frameShader.end();
 }
 

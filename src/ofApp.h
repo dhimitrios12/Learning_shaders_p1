@@ -25,9 +25,14 @@ class ofApp : public ofBaseApp{
 		ofMesh charMesh;
 		ofMesh backgroundMesh;
 		ofMesh frameMesh;
+		ofMesh sunRaysMesh;
+		ofMesh portalMesh;
 		ofShader charShader;
 		ofShader frameShader;
+		ofShader portalShader;
 		ofImage charImage;
 		ofImage backgroundImage;
 		ofImage frameImage;
+		ofImage sunRays;
+		ofImage portalImage;
 };

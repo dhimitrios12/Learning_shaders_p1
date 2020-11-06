@@ -25,5 +25,6 @@
     <None Include="bin\data\passthrough_v2.vert" />
     <None Include="bin\data\alphaTest.frag" />
     <None Include="bin\data\flare.frag" />
+    <None Include="bin\data\spriteSheet.vert" />
   </ItemGroup>
 </Project>
